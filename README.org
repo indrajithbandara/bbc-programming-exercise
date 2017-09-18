@@ -8,7 +8,7 @@ Simple HTTP-Get requests into json-stream w/ error handling!
 
 * USAGE
 #+BEGIN_SRC
-  git clone
+  git clone https://github.com/watkinsr/bbc-programming-exercise.git
   cd bbc-programming-exercise
   guile -l ex.scm
 #+END_SRC
