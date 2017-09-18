@@ -1,0 +1,18 @@
+* DESCRIPTION
+Simple HTTP-Get requests into json-stream w/ error handling!
+
+* REQUIREMENTS
+GNU Guile
+Guile-json
+
+* USAGE
+$ git clone ...
+$ cd bbc-programming-exercise
+$ guile -l ex.scm
+$ enter 9 lines with public web addresses into stdin
+
+* TODOS
++ Json stream output
++ Invalid url error handling
++ Unit tests
++ group json docs by status_code
