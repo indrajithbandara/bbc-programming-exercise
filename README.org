@@ -6,10 +6,11 @@ Simple HTTP-Get requests into json-stream w/ error handling!
 + Guile-json
 
 * USAGE
-+ $ git clone ...
-+ $ cd bbc-programming-exercise
-+ $ guile -l ex.scm
-+ $ enter 9 lines with public web addresses into stdin
+#+BEGIN_SRC
+  git clone
+  cd bbc-programming-exercise
+  guile -l ex.scm
+#+END_SRC
 
 * TODOS
 + Json stream output
