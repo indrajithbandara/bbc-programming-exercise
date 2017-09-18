@@ -4,6 +4,7 @@ Simple HTTP-Get requests into json-stream w/ error handling!
 * REQUIREMENTS
 + Guile
 + Guile-json
++ GnuTLS
 
 * USAGE
 #+BEGIN_SRC

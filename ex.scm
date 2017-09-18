@@ -35,11 +35,12 @@
       (res-m-date (try-res-prop response-date res))
       (res-date (cond ((date? res-m-date) (date->string res-m-date)) (else #f)))
       (res-json-str
-      (cond
-        ((or (eq? #f res-code) (eq? #f res-length) (eq? #f res-date))
-          (scm->json-string `(("Url" ,@url) ("Error" ,@res))))
-        (else (scm->json-string `(("Url" ,@url) ("Status_code" ,@res-code)
-          ("Content_length" ,@res-length) ("Date" ,@res-date)) #:pretty #t)))))
+        ((lambda ()
+           (cond
+             ((or (eq? #f res-code) (eq? #f res-length) (eq? #f res-date))
+               (scm->json-string `(("Url" ,@url) ("Error" ,@res))))
+             (else (scm->json-string `(("Url" ,@url) ("Status_code" ,@res-code)
+               ("Content_length" ,@res-length) ("Date" ,@res-date)) #:pretty #t)))))))
       (display res-json-str) (newline)
       (cons res-json-str (cons (json-string->scm res-json-str) (quote ()))))))
 
@@ -68,19 +69,14 @@
 (define get-json-object (lambda (l) (car (cdr l))))
 (define get-keys-hash (lambda (h) (hash-fold (lambda (k v s) (cons k s)) '() h)))
 
-(define mock-success-res-hash-keys
+(define mock-error-res-hash-keys
   (lambda ()
-    (let* ((res (build-response))
-           (keys (get-keys-hash (http-res-json res "test_url"))))
-      (display "Built response in unit test: ") (display res) (newline)
-      (display "Keys: ") (display keys) (newline)
+    (let* ((res "some error")
+           (keys (get-keys-hash (get-json-object (http-res-json "test_url" res)))))
       keys)))
-
-(mock-success-res-hash-keys)
-
 
 (test-begin "bbc-programming-exam-tests" 1)
 
-(test-equal "json-success-keys-interface"
-  '("Date" "Content_length" "Status_code" "Url")
-  (mock-success-res-hash-keys))
+(test-equal "json-error-keys-interface"
+  '("Error" "Url")
+  (mock-error-res-hash-keys))
